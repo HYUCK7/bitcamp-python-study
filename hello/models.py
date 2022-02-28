@@ -30,11 +30,12 @@ if __name__ == '__main__':
             calc = Calculator(num1, num2)
             print('*' * 30)
             if opcode == '+':
-                print(f'{calc.num1} + {calc.num2} = {calc.add()}')
+                result = {calc.add()}
             elif opcode == '-':
-                print(f'{calc.num1} - {calc.num2} = {calc.sub()}')
+                result = {calc.sub()}
             elif opcode == '*':
-                print(f'{calc.num1} * {calc.num2} = {calc.mul()}')
+                result = {calc.mul()}
             elif opcode == '/':
-                print(f'{calc.num1} / {calc.num2} = {calc.div()}')
+                result = {calc.div()}
+            print(f'{calc.num1} {opcode} {calc.num2} = {result}')
             print('*' * 30)
