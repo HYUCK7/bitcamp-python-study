@@ -1,4 +1,4 @@
-import opcode
+
 import random
 def main():
     while 1:
@@ -6,28 +6,18 @@ def main():
         if menu == '0':
             break
         elif menu == '1': # 계산기
-            calc = Quiz01Calculator(num1, num2)
-            num1 = int(input('첫 번째 수'))
-            num2 = int(input('두 번째 수'))
-            opcode = input('연산기호')
-            print(f'{calc.num1} {opcode} {calc.num2} = {calc.opcodeSelect()}')
+            calc = Quiz01Calculator(int(input('첫 번째 수')),int(input('두 번째 수')),input('연산기호'))
+            print(f'{calc.num1} {calc.opcode} {calc.num2} = {calc.opcodeSelect()}')
         elif menu == '2': # BMI
-            bmi = Quiz02Bmi(name, height, weight)
-            name = input('이름')
-            weight = int(input('몸무게'))
-            height = int(input('키'))
-            print(f'{name}님의 결과는 {bmi.op()}')
+            bmi = Quiz02Bmi(input('이름'), int(input('몸무게')), int(input('키')))
+            print(f'{bmi.name}님의 결과는 {bmi.op()}')
         elif menu == '3': #Grade
-            grade = Quiz03Grade(name, kor, eng, math)
-            name = input('이름')
-            kor = int(input('국어 점수'))
-            math = int(input('수학 점수'))
-            eng = int(input('영어 점수'))
+            grade = Quiz03Grade(input('이름'), int(input('국어 점수')), int(input('영어 점수')), int(input('수학 점수')))
             print (f'''\
-            {name} 님의 성적표
-            국어 점수 : {kor}
-            영어 점수 : {eng}
-            수학 점수 : {math}
+            {grade.name} 님의 성적표
+            국어 점수 : {grade.kor}
+            영어 점수 : {grade.eng}
+            수학 점수 : {grade.math}
             총점 : {grade.total()}
             평균 : {grade.avg()}
             ''')
@@ -36,16 +26,23 @@ def main():
                 print()
                 pass
         elif menu == '5': #Dice
-            dice = Quiz05Dice(None)
-            dic = dice.number()
-            print(dic)
+            print(Quiz05Dice.cast())
 
-        elif menu == '6': # RandomGenerator
-            randonNum = Quiz06RandomGenerator(int(input('범위 설정')))
-            print(randonNum.number())
+        elif menu == '6': pass
 
         elif menu == '7': # RandomChoice
             print(Quiz07RandomChoice().choice())
+        elif menu == '8': #RPS
+            q8 = Quiz08Rps(1)
+            print(q8.game())
+        elif menu == '9': #GetPrime
+            primeValue = Quiz09GetPrime(int(input('숫자 값 입력')))
+            print(primeValue.getP())
+        elif menu == '10': #LeapYear
+            pass
+        elif menu == '11': #NumberGolf
+            user = Quiz11NumberGolf(int(input('숫자 값 입력')))
+            print(user.golf())
 
 class Quiz01Calculator(object):
     def __init__(self, num1, num2, opcode):
@@ -66,10 +63,10 @@ class Quiz01Calculator(object):
         return self.num1 / self.num2
 
     def opcodeSelect(self):
-        if opcode == "+" : return self.add()
-        elif opcode == '-' : return self.sub()
-        elif opcode == '*' : return self.mul()
-        elif opcode == '/' : return self.div()
+        if self.opcode == "+" : return self.add()
+        elif self.opcode == '-' : return self.sub()
+        elif self.opcode == '*' : return self.mul()
+        elif self.opcode == '/' : return self.div()
 
 class Quiz02Bmi(object):
     def __init__(self, name, weight, height):
@@ -110,15 +107,15 @@ class Quiz04GradeAuto(object):
     def chkPass(self): # 60점 이상이면 합격
         pass
 
+def myRandom(start, end):
+    return random.randint(start, end)
+
 class Quiz05Dice:
-    def __init__(self,dic):
-        self.dic = dic
-    def number(self): return int(random.random() * 6) +1
+    @staticmethod
+    def cast(): return myRandom(1, 6)
 
 class Quiz06RandomGenerator:
-    def __init__(self,scope): #원하는 범위의 정수에서 랜덤값 1개 추출
-        self.scope = scope
-    def number(self): return int(random.random() * self.scope) + 1
+    def __init__(self): pass
 
 class Quiz07RandomChoice:
     def __init__(self): #803호에서 랜덤으로 1명 이름 추출
@@ -127,6 +124,73 @@ class Quiz07RandomChoice:
                         '심민혜' , '권솔이', '김지혜' , '하진희' , '최은아',
                         '최민서', '한성수', '김윤섭', '김승현',
                         "강 민", "최건일", "유재혁", "김아름", "장원종"]
-    def choice(self): return self.members[int(random.random() * 24)]
+    # def choice(self): return self.members[int(random.random() * 24)]
+    def choice(self): return self.members[myRandom(0,23)]
+class Quiz08Rps:
+    def __init__(self, player):
+        self.player = player
+        self.computer = myRandom(0,2)
+        self.rps = ['가위', '바위', '보']
+    def game(self):
+        # 1 가위 2 바위 3보
+        pass
+
+        '''if p == 1:
+            if c == 0: res = f'플레이어{rps[0]}, 컴퓨터{rps[0]}, 결과 draw'
+            elif c == 1: res = f'플레이어{rps[0]}, 컴퓨터{rps[1]}, 결과 lose'
+            elif c == 2: res = f'플레이어{rps[0]}, 컴퓨터{rps[2]}, 결과 win'
+            
+        if p == 2:
+            if c == 1: res = 'lose'
+            elif c == 2: res = 'draw'
+            elif c == 3: res = 'win'
+        if p == 3:
+            if c == 1: res = 'lose'
+            elif c == 2: res = 'win'
+            elif c == 3: res = 'draw'''
+        pass
+
+class Quiz09GetPrime:
+    def __init__(self, prime):
+        self.prime = prime
+    def getP(self):
+        res = ''
+        for i in range(2, self.prime):
+            count = 0
+            for j in range(2, self.prime +1):
+                if i == j: res += str(i)
+                elif i % j ==0: break
+                return res
+
+class Quiz10LeapYear:
+    def __init__(self,year):
+        self.year = year
+    def leap(self):
+        if self.year % 4 == 0 and not self.year%100 == 0 or self.year%400==0: return '윤년'
+        else: return '평년'
+
+class Quiz11NumberGolf:
+    def __init__(self, user):
+        self.com = myRandom(1,100)
+        self.user = user
+    def golf(self):
+        res =""
+        while self.user != self.com :
+            if self.user > self.com: res = "Down"
+            elif self.user < self.com: res = "Up"
+            elif self.user == self.com: res = "정답."
+            return res
+
+
+class Quiz12Lotto:
+    def __init__(self):
+        pass
+class Quiz13Bank:#이름, 입금, 출금만 구현
+    def __init__(self):
+        pass
+class Quiz14Gugudan:#책받침 구구단
+    def __init__(self):
+        pass
+
 if __name__ == '__main__':
     main()
