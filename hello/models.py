@@ -1,48 +1,5 @@
 
 import random
-def main():
-    while 1:
-        menu = input('0.Exit 1. 계산기 (+, - , *, /) 2. BMI 계산기 3. 성적표 4. 오토성적표 5. 다이스 6. 추출 7. 멤버뽑기')
-        if menu == '0':
-            break
-        elif menu == '1': # 계산기
-            calc = Quiz01Calculator(int(input('첫 번째 수')),int(input('두 번째 수')),input('연산기호'))
-            print(f'{calc.num1} {calc.opcode} {calc.num2} = {calc.opcodeSelect()}')
-        elif menu == '2': # BMI
-            bmi = Quiz02Bmi(input('이름'), int(input('몸무게')), int(input('키')))
-            print(f'{bmi.name}님의 결과는 {bmi.op()}')
-        elif menu == '3': #Grade
-            grade = Quiz03Grade(input('이름'), int(input('국어 점수')), int(input('영어 점수')), int(input('수학 점수')))
-            print (f'''\
-            {grade.name} 님의 성적표
-            국어 점수 : {grade.kor}
-            영어 점수 : {grade.eng}
-            수학 점수 : {grade.math}
-            총점 : {grade.total()}
-            평균 : {grade.avg()}
-            ''')
-        elif menu =='4': #Gradeauto
-            for i in ['김유신', '강감찬', '유관순', '윤봉길','신사임당']:
-                print()
-                pass
-        elif menu == '5': #Dice
-            print(Quiz05Dice.cast())
-
-        elif menu == '6': pass
-
-        elif menu == '7': # RandomChoice
-            print(Quiz07RandomChoice().choice())
-        elif menu == '8': #RPS
-            q8 = Quiz08Rps(1)
-            print(q8.game())
-        elif menu == '9': #GetPrime
-            primeValue = Quiz09GetPrime(int(input('숫자 값 입력')))
-            print(primeValue.getP())
-        elif menu == '10': #LeapYear
-            pass
-        elif menu == '11': #NumberGolf
-            user = Quiz11NumberGolf(int(input('숫자 값 입력')))
-            print(user.golf())
 
 class Quiz01Calculator(object):
     def __init__(self, num1, num2, opcode):
@@ -69,12 +26,10 @@ class Quiz01Calculator(object):
         elif self.opcode == '/' : return self.div()
 
 class Quiz02Bmi(object):
-    def __init__(self, name, weight, height):
-        self.name = name
-        self.weight = weight
-        self.height = height
-    def op(self):
-        res = (self.weight / (self.height**2))*1000
+    @staticmethod
+    def op(member):
+        this = member
+        res = (this.weight / (this.height**2))*1000
         if res < 18.5:
             return '저체중입니다.'
         elif res < 23:
@@ -132,9 +87,8 @@ class Quiz08Rps:
         self.computer = myRandom(0,2)
         self.rps = ['가위', '바위', '보']
     def game(self):
-        # 1 가위 2 바위 3보
-        pass
-
+        res = ''
+        #삼항연산자 써보기
         '''if p == 1:
             if c == 0: res = f'플레이어{rps[0]}, 컴퓨터{rps[0]}, 결과 draw'
             elif c == 1: res = f'플레이어{rps[0]}, 컴퓨터{rps[1]}, 결과 lose'
@@ -191,6 +145,3 @@ class Quiz13Bank:#이름, 입금, 출금만 구현
 class Quiz14Gugudan:#책받침 구구단
     def __init__(self):
         pass
-
-if __name__ == '__main__':
-    main()
