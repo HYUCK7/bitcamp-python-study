@@ -81,29 +81,16 @@ class Quiz07RandomChoice:
                         "강 민", "최건일", "유재혁", "김아름", "장원종"]
     # def choice(self): return self.members[int(random.random() * 24)]
     def choice(self): return self.members[myRandom(0,23)]
+
 class Quiz08Rps:
     def __init__(self, player):
         self.player = player
-        self.computer = myRandom(0,2)
+        self.computer = myRandom(1,3)
         self.rps = ['가위', '바위', '보']
-    def game(self):
+    def game(self): # 1 : 가위 2: 바위 3 :보
         res = ''
-        #삼항연산자 써보기
-        '''if p == 1:
-            if c == 0: res = f'플레이어{rps[0]}, 컴퓨터{rps[0]}, 결과 draw'
-            elif c == 1: res = f'플레이어{rps[0]}, 컴퓨터{rps[1]}, 결과 lose'
-            elif c == 2: res = f'플레이어{rps[0]}, 컴퓨터{rps[2]}, 결과 win'
-            
-        if p == 2:
-            if c == 1: res = 'lose'
-            elif c == 2: res = 'draw'
-            elif c == 3: res = 'win'
-        if p == 3:
-            if c == 1: res = 'lose'
-            elif c == 2: res = 'win'
-            elif c == 3: res = 'draw'''
-        pass
-
+        if self.user - self.computer == -2 or self.user - self.computer == 1: res = 'win'
+        if self.user - self.computer == -1 or self.user - self.computer == 2: res = 'lose'
 class Quiz09GetPrime:
     def __init__(self, prime):
         self.prime = prime
@@ -112,8 +99,8 @@ class Quiz09GetPrime:
         for i in range(2, self.prime):
             count = 0
             for j in range(2, self.prime +1):
-                if i == j: res += str(i)
-                elif i % j ==0: break
+                if i % j ==0: count += 1
+                if count == 1: res += str(i) + "\t"
                 return res
 
 class Quiz10LeapYear:
@@ -128,12 +115,10 @@ class Quiz11NumberGolf:
         self.com = myRandom(1,100)
         self.user = user
     def golf(self):
-        res =""
         while self.user != self.com :
-            if self.user > self.com: res = "Down"
-            elif self.user < self.com: res = "Up"
-            elif self.user == self.com: res = "정답."
-            return res
+            if self.user > self.com: self.user = int(input('down'))
+            elif self.user < self.com: self.user = int(input('up'))
+        return '정답입니다.'
 
 
 class Quiz12Lotto:
@@ -143,5 +128,13 @@ class Quiz13Bank:#이름, 입금, 출금만 구현
     def __init__(self):
         pass
 class Quiz14Gugudan:#책받침 구구단
-    def __init__(self):
-        pass
+    @staticmethod
+    def gugudan():
+        res =""
+        for k in [2,6]:
+            for j in range(1,10):
+                for i in range(0,4):
+                    res += f'{i + k} * {j} = {(i+k) * j}\t'
+                res += '\n'
+            res += '\n'
+        return res

@@ -1,6 +1,6 @@
 from hello.domains import Member
 from hello.models import Quiz01Calculator, Quiz03Grade, Quiz02Bmi, Quiz05Dice, Quiz07RandomChoice, Quiz08Rps, \
-    Quiz09GetPrime, Quiz11NumberGolf
+    Quiz09GetPrime, Quiz11NumberGolf, Quiz14Gugudan
 
 if __name__ == '__main__':
  while 1:
@@ -52,3 +52,5 @@ if __name__ == '__main__':
     elif menu == '11':  # NumberGolf
         user = Quiz11NumberGolf(int(input('숫자 값 입력')))
         print(user.golf())
+    elif menu == '14':
+        print(Quiz14Gugudan.gugudan())

@@ -6,9 +6,6 @@ class Member:
     name :str
     height:float
     weight:float
-    kor : int
-    eng : int
-    math : int
 
     @property
     def name(self)-> str:return self._name
@@ -28,10 +25,5 @@ class Member:
     @height.setter
     def height(self,height):self._height = height
 
-    @property
-    def kor(self)-> int: return self._kor
-
-    @kor.setter
-    def kor(self,kor):self._kor = kor
 
 
