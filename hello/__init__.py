@@ -42,7 +42,7 @@ if __name__ == '__main__':
     elif menu == '7':  # RandomChoice
         print(Quiz07RandomChoice().choice())
     elif menu == '8':  # RPS
-        q8 = Quiz08Rps(1)
+        q8 = Quiz08Rps(int(input('가위: 1 바위: 2 보: 3')))
         print(q8.game())
     elif menu == '9':  # GetPrime
         primeValue = Quiz09GetPrime(int(input('숫자 값 입력')))

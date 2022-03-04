@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+import random
 
 
 @dataclass
@@ -24,6 +25,9 @@ class Member:
 
     @height.setter
     def height(self,height):self._height = height
+
+def myRandom(start, end): return random.randint(start, end)
+def my100(): return myRandom(1, 100)
 
 
 

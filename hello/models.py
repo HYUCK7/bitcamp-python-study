@@ -89,8 +89,11 @@ class Quiz08Rps:
         self.rps = ['가위', '바위', '보']
     def game(self): # 1 : 가위 2: 바위 3 :보
         res = ''
-        if self.user - self.computer == -2 or self.user - self.computer == 1: res = 'win'
-        if self.user - self.computer == -1 or self.user - self.computer == 2: res = 'lose'
+        if self.player - self.computer == -2 or self.player - self.computer == 1: res = 'win'
+        elif self.player - self.computer == -1 or self.player - self.computer == 2: res = 'lose'
+        elif self.player == self.computer: res = 'draw'
+        return res
+
 class Quiz09GetPrime:
     def __init__(self, prime):
         self.prime = prime
@@ -122,7 +125,13 @@ class Quiz11NumberGolf:
 
 
 class Quiz12Lotto:
-    def __init__(self):
+    @staticmethod
+    def lotto():
+        lottoNum = myRandom(1,46)
+        check = []
+        for i in range (6):
+            i = lottoNum
+        return sorted(check)
         pass
 class Quiz13Bank:#이름, 입금, 출금만 구현
     def __init__(self):
