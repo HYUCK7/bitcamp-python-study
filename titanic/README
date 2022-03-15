@@ -1,0 +1,63 @@
+Overview
+The data has been split into two groups:
+
+training set (train.csv)
+test set (test.csv)
+The training set should be used to build your machine learning models.
+For the training set, we provide the outcome (also known as the “ground truth”) for each passenger.
+Your model will be based on “features” like passengers’ gender and class.
+You can also use feature engineering to create new features.
+
+The test set should be used to see how well your model performs on unseen data.
+For the test set, we do not provide the ground truth for each passenger.
+It is your job to predict these outcomes.
+For each passenger in the test set, use the model you trained to predict whether or not they survived the sinking of the Titanic.
+
+We also include gender_submission.csv, a set of predictions that assume all and only female passengers survive,
+as an example of what a submission file should look like.
+
+--
+Variable Notes
+pclass: A proxy for socio-economic status (SES)
+1st = Upper
+2nd = Middle
+3rd = Lower
+
+age: Age is fractional if less than 1. If the age is estimated,
+is it in the form of xx.5
+
+sibsp: The dataset defines family relations in this way...
+Sibling = brother, sister, stepbrother, stepsister
+Spouse = husband, wife (mistresses and fiancés were ignored)
+
+parch: The dataset defines family relations in this way...
+Parent = mother, father
+Child = daughter, son, stepdaughter, stepson
+Some children travelled only with a nanny, therefore parch=0 for them.
+
+컬럼 Column = 변수 Variable = 피처 (feature)
+'Survived',-> label
+'Pclass',
+'Name',
+'Sex',
+'Age',
+'SibSp',
+'Parch', "
+"'Ticket',
+"'Fare',
+'Cabin',
+'Embarked'
+
+4-1. Survived : 생존 여부
+4-2. Pclass : 객실 등급 (1등석, 2등석 3등석) - 1.5등석은 없음.
+4-3. Sex : 성별
+4-4. Name : 이름 - 유재혁이라고 해서 살 확률은 없다 Mr. , Rev에 따라서 확률이 바뀌었음(신분)
+이름 뿐이면 쓰레기, 신분이 있어서 필요한 데이터
+4-5. Age : 나이 - 나이에 기준에 따라서, 중년, 장년, 소년, 청년으로 나눔
+4-6. SibSp : 형제자매/배우자
+4-7. Parch : 부모/자식
+4-8. Fare : 요금 ratio
+4-9. Embarked : 탑승 항구(cherbourg, queenstown, southampton)
+queenstown 부자동네, southampton 노동자 동네 부자동네가 생존확률이 높았음
+4-10. Cabin : 객실 구역 P Class로 구분하면된다.
+4-11. Ticket : 탑승권 몰래 탄 사람, 암표, 티켓 번호는 필요없음
