@@ -1,8 +1,11 @@
 # https://github.com/datasciencedojo/datasets/blob/master/titanic.csv
+from icecream import ic
+
 from titanic import models
 from titanic.models import TitanicModel
 from titanic.templates import TitanicTemplate
 from titanic.views import TitanicView
+
 
 if __name__ == '__main__':
     # view = TitanicView()
@@ -12,7 +15,8 @@ if __name__ == '__main__':
         if menu == '1':
             print(' #### 템플릿 ####')
             # models.TitanicModel(train='train.csv', test='test.csv')
-            templates = TitanicTemplate()
+            template = TitanicTemplate(fname='train.csv')
+            template.visualize()
             break
         elif menu == '2':
             print(' #### 전처리 ####')

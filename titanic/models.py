@@ -1,3 +1,5 @@
+from gc import garbage
+
 from icecream import ic
 
 import context.models
@@ -7,38 +9,46 @@ from context.models import Model
 
 
 class TitanicModel:
+    model = Model()
+    dataset = Dataset()
+
     def __init__(self, train_fname, test_fname):
-        self.model = Model()
-        self.dataset = Dataset()
         self.train = self.model.new_model(train_fname)
         self.test = self.model.new_model(test_fname)
-        # id 추출
-        ic(f'트레인 컬럼 {self.train.columns}')
-        ic(f'트레인 헤드 {self.train.head()}')
-        ic(self.train)
 
     def preprocess(self):
-        self.sibsp_garbage()
-        self.parch_garbage()
-        self.cabin_gabage()
-        self.ticket_garvage()
-        self.name_nominal()
-        self.pclass_nominal()
-        self.sex_nominal()
-        self.embarked_nominal()
-        self.age_ratio()
-        self.fare_ratio()
-        self.create_label()
-        self.create_train()
+        df = self.train  # 대상이 되는 객체 생성
+        ic(f'트레인 컬럼 {df.columns}')
+        ic(f'트레인 헤드 {df.head()}')
+        ic(df)
 
-    def create_label(self) -> object:
-        pass
+        df = self.drop_feature(df)
+        df = self.name_nominal(df)
+        df = self.pclass_nominal(df)
+        df = self.sex_nominal(df)
+        df = self.embarked_nominal(df)
+        df = self.age_ratio(df)
+        df = self.fare_ratio(df)
+        df = self.create_label(df)
+        df = self.create_train(df)
+        return df
 
-    def create_train(self) -> object:
-        pass
+    @staticmethod
+    def create_label(df) -> object:
+        return df
 
-    def drop_feature(self) -> object:
-        pass
+    @staticmethod
+    def create_train(df) -> object:
+        return df
+
+    def drop_feature(self, df) -> object:
+        '''
+        df = self.sibsp_garbage(df)
+        df = self.parch_garbage(df)
+        df = self.cabin_garbage(df)
+        df = self.ticket_garbage(df)
+        return df 가비지는 뤂으로 날려버림 메소드 만들 필요도 없다.
+        '''
 
     '''
     categorical vs Quantitative
@@ -46,32 +56,28 @@ class TitanicModel:
     quan -> interval(상대적, 기준이 없음 ex)'부자',온도가 높다.낮다) vs ratio(절대적)
     '''
 
-    def pclass_nominal(self) -> object:
-        pass
+    @staticmethod
+    def pclass_nominal(df) -> object:
+        return df
 
-    def sex_nominal(self) -> object:
-        pass
+    @staticmethod
+    def sex_nominal(df) -> object:
+        return df
 
-    def name_nominal(self) -> object:
-        pass
+    @staticmethod
+    def name_nominal(df) -> object:
+        return df
 
-    def age_ratio(self) -> object:
-        pass
+    @staticmethod
+    def age_ratio(df) -> object:
+        return df
 
-    def sibsp_garbage(self) -> object:
-        self.drop_feature()
 
-    def parch_garbage(self) -> object:
-        self.drop_feature()
+    @staticmethod
+    def fare_ratio(df) -> object:
+        return df
 
-    def fare_ratio(self) -> object:
-        pass
 
-    def cabin_gabage(self) -> object:
-        pass
-
-    def ticket_garvage(self) -> object:
-        pass
-
-    def embarked_nominal(self) -> object:
-        self
+    @staticmethod
+    def embarked_nominal(df) -> object:
+        return df
