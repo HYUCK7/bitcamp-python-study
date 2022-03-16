@@ -33,18 +33,21 @@ class TitanicTemplate:
 
     @staticmethod
     def draw_survived(df) -> None:
-        # f, ax = plt.subplots(1, 2, figsize=(18, 8))
-        # this = ['Survived']
+        f, ax = plt.subplots(1, 2, figsize=(18, 8))
+        df['Survived']
         plt.show()
 
     @staticmethod
     def draw_pclass(df) -> None:
+        df['Pclass']
         plt.show()
 
     @staticmethod
     def draw_sex(df) -> None:
+        df['Sex']
         plt.show()
 
     @staticmethod
     def draw_embarked(df) -> None:
+        df['Embarked']
         plt.show()
