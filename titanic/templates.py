@@ -6,7 +6,6 @@ from context.models import Model
 from titanic import TitanicModel
 import matplotlib.pyplot as plt
 import seaborn as sns
-
 rc('font', family=font_manager.FontProperties(fname='C:/Windows/Fonts/malgunsl.ttf').get_name())
 
 '''데이터 시각화
