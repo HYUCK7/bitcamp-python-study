@@ -33,7 +33,9 @@ class TitanicModel:
         this = self.drop_feature(this, 'Sex')
         this = self.embarked_nominal(this)
         this = self.age_ratio(this)
+        this = self.drop_feature(this, 'Age')
         this = self.fare_ratio(this)
+        this = self.drop_feature(this, 'Fare')
         # self.kwargs_sample(names='이순신')
 
         '''
