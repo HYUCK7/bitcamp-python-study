@@ -3,6 +3,10 @@ from gc import garbage
 import numpy as np
 import pandas as pd
 from icecream import ic
+from sklearn.model_selection import KFold
+from sklearn.model_selection import cross_val_score
+from sklearn.ensemble import RandomForestClassifier
+
 
 import context.models
 from context import models, domain
@@ -36,11 +40,14 @@ class TitanicModel:
         this = self.drop_feature(this, 'Age')
         this = self.fare_ratio(this)
         this = self.drop_feature(this, 'Fare')
+        k_fold = self.create_k_fold()
+        acc = self.get_accuracy(this, k_fold)
+        ic(acc)
         # self.kwargs_sample(names='이순신')
 
         '''
         df = self.name_nominal(df)
-        df = self.pclass_nominal(df)
+        df = self.pclass_ordinal(df)
         df = self.sex_nominal(df)
         df = self.embarked_nominal(df)
         df = self.age_ratio(df)
@@ -101,7 +108,7 @@ class TitanicModel:
     '''
 
     @staticmethod
-    def pclass_nominal(this) -> object:
+    def pclass_ordinal(this) -> object:
         return this
 
     @staticmethod
@@ -196,3 +203,12 @@ class TitanicModel:
             these['Embarked'] = these['Embarked'].map(embarked_mapping)
         return this
     # 사우스 햄튼에 사람(노동자)들이 가장 많이 탔기 때문에 정규분포에 따라서, 사우스 햄튼으로 채우겠다.
+
+    @staticmethod
+    def create_k_fold()-> object:
+        return KFold(n_splits=10, shuffle=True, random_state=0)
+
+    @staticmethod
+    def get_accuracy(this, k_fold):
+        score = cross_val_score(RandomForestClassifier(), this.train, this.label, cv=k_fold, n_jobs=1, scoring='accuracy')
+        return round(np.mean(score)*100, 2)
