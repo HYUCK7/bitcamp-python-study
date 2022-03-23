@@ -7,7 +7,6 @@ from sklearn.model_selection import KFold
 from sklearn.model_selection import cross_val_score
 from sklearn.ensemble import RandomForestClassifier
 
-
 import context.models
 from context import models, domain
 from context.domain import Dataset
@@ -58,6 +57,22 @@ class TitanicModel:
         # self.print_this(this)
         self.df_info(this)
         return this
+
+    def learning(self, train_fname, test_fname):
+        this = self.preprocess(train_fname, test_fname)
+        self.df_info(this)
+        k_fold = self.create_k_fold()
+        ic(f'사이킷런 알고리즘 정확도:{self.get_accuracy(this, k_fold)}')
+        self.submit(this)
+
+    # preprocess와 submit의 훅 = learning
+
+    @staticmethod
+    def submit(this):
+        clf = RandomForestClassifier()
+        clf.fit(this.train, this.label)
+        prediction = clf.predict(this.test)
+        pd.DataFrame({'PassengerId': this.id, 'Survived': prediction}).to_csv('./save/submission.csv', index=False)
 
     @staticmethod
     def df_info(this):
@@ -173,8 +188,9 @@ class TitanicModel:
         test['Age'] = test['Age'].fillna(-0.5)
         # Null값을 -0.5로 바꿔서 -1과 0 사이에 두어 언노운을 만들어주기 위해서 -1과 0사이에 포함시키기 위해서
 
-        bins = [-1, 0, 5, 12, 18, 24, 35, 60, np.inf] # labels를 지정해 줄 수 있으며, 지정한 bins의 개수보다 1 개가 적어야 합니다.
-        labels = ['Unknown', 'Baby', 'Child', 'Teenager', 'Student', 'Young Adult', 'Adult', 'Senior'] # (-1 ~ 0 unknown, 60 ~ Senior)
+        bins = [-1, 0, 5, 12, 18, 24, 35, 60, np.inf]  # labels를 지정해 줄 수 있으며, 지정한 bins의 개수보다 1 개가 적어야 합니다.
+        labels = ['Unknown', 'Baby', 'Child', 'Teenager', 'Student', 'Young Adult', 'Adult',
+                  'Senior']  # (-1 ~ 0 unknown, 60 ~ Senior)
         for these in train, test:
             # pd.cut() 을 사용하시오. 다른 곳은 고치지 말고 다음 두 줄만 코딩하시오
             these['AgeGroup'] = pd.cut(these['Age'], bins, labels=labels, right=False)  # pd.cut() 을 사용
@@ -202,13 +218,15 @@ class TitanicModel:
         for these in [this.train, this.test]:
             these['Embarked'] = these['Embarked'].map(embarked_mapping)
         return this
+
     # 사우스 햄튼에 사람(노동자)들이 가장 많이 탔기 때문에 정규분포에 따라서, 사우스 햄튼으로 채우겠다.
 
     @staticmethod
-    def create_k_fold()-> object:
+    def create_k_fold() -> object:
         return KFold(n_splits=10, shuffle=True, random_state=0)
 
     @staticmethod
     def get_accuracy(this, k_fold):
-        score = cross_val_score(RandomForestClassifier(), this.train, this.label, cv=k_fold, n_jobs=1, scoring='accuracy')
-        return round(np.mean(score)*100, 2)
+        score = cross_val_score(RandomForestClassifier(), this.train, this.label,
+                                cv=k_fold, n_jobs=1, scoring='accuracy')
+        return round(np.mean(score) * 100, 2)
