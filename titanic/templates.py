@@ -1,4 +1,3 @@
-from icecream import ic
 from matplotlib import rc, font_manager
 
 from context.domain import Dataset

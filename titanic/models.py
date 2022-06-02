@@ -2,7 +2,7 @@ from gc import garbage
 
 import numpy as np
 import pandas as pd
-from icecream import ic
+
 from sklearn.model_selection import KFold
 from sklearn.model_selection import cross_val_score
 from sklearn.ensemble import RandomForestClassifier

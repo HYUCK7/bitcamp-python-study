@@ -1,6 +1,4 @@
 # https://github.com/datasciencedojo/datasets/blob/master/titanic.csv
-from icecream import ic
-
 from titanic import models
 from titanic.models import TitanicModel
 from titanic.templates import TitanicTemplate
